@@ -1,0 +1,18 @@
+[
+    {"docket_A": 999},
+    {"docket_B": 999},
+    {"docket_C": 999},
+    {"docket_D": 999},
+
+    {"docket_E01": 999},
+    {"docket_E02": 999},
+    {"docket_E03": 999},
+    {"docket_E04": 999},
+    {"docket_E05": 999},
+    {"docket_E06": 999},
+    {"docket_E07": 999},
+
+    {"docket_F01": 999},
+    {"docket_F09": 999},
+    {"docket_F10": 999}
+]
