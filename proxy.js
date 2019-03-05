@@ -151,7 +151,7 @@ function forwardRequest(response, url, headers, body)
     req.on('error', function(err)
     {
         response.writeHead(404, {'Content-Type': 'application/json'});
-        response.end(err);
+        response.end(err.toString());
     });
 
     if(isPost)
