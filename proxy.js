@@ -151,7 +151,7 @@ function forwardRequest(response, url, headers, body)
     req.on('error', function(err)
     {
         response.writeHead(404, {'Content-Type': 'application/json'});
-        response.end(err);
+        response.end(err.toString());
     });
 
     if(isPost)
@@ -288,7 +288,7 @@ As2ouFiHupWq0bpgsion3AZqUIrQONPQifTRg2Er9pc9WpVNPQ1A
 -----END RSA PRIVATE KEY-----`;
 
 console.log("DyingLightDocketServer - by emoose");
-console.log("Edit your hosts file and point pls.dyinglightgame.exe to 127.0.0.1 before use!");
+console.log("Edit your hosts file and point pls.dyinglightgame.com to 127.0.0.1 before use!");
 console.log();
 
 if(fs.existsSync("serverCert.pem"))
