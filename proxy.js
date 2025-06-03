@@ -61,46 +61,6 @@ var rewards =
 // ls = loading screen
 // ds = death screen
 
-var scrollMsg = "You're connected to the %COLOR(FF8000)Dying Light Docket Server%COLOR(RESET)! This server will provide you with an almost limitless amount of %COLOR(FF8000)dockets%COLOR(RESET). All other server functions are forwarded to the %COLOR(FF8000)official game server%COLOR(RESET).";
-var loadingMsg = "The %COLOR(FF8000)Dying Light Docket Server%COLOR(RESET) will provide you with 999 of each type of %COLOR(FF8000)docket%COLOR(RESET), redeemable at the %COLOR(FF8000)quartermaster%COLOR(RESET).";
-var deathMsg = "Wow you %COLOR(FF8000)died%COLOR(RESET), get gud %COLOR(FF8000)scrub%COLOR(RESET)!";
-
-var motd =
-[
-    {
-        "format": {},
-        "text": scrollMsg,
-        "number": 1,
-        "from_date": "2016-03-13T00:00:00",
-        "to_date": "2036-09-26T00:00:00",
-        "type": "mms"
-    },
-    {
-        "format": {},
-        "text": scrollMsg,
-        "number": 1,
-        "from_date": "2016-03-13T00:00:00",
-        "to_date": "2036-09-26T00:00:00",
-        "type": "mmf"
-    },
-    {
-        "format": {},
-        "text": loadingMsg,
-        "number": 2,
-        "from_date": "2016-03-13T00:00:00",
-        "to_date": "2036-09-26T00:00:00",
-        "type": "ls"
-    },
-    {
-        "format": {},
-        "text": deathMsg,
-        "number": 3,
-        "from_date": "2016-03-13T00:00:00",
-        "to_date": "2036-09-26T00:00:00",
-        "type": "ds"
-    }
-];
-
 function forwardRequest(response, url, headers, body)
 {
     var isPost = typeof body !== 'undefined'; // if body arg is supplied we'll assume this is a POST request
@@ -108,7 +68,7 @@ function forwardRequest(response, url, headers, body)
     headers['Host'] = "pls.dyinglightgame.com";
 
     if(usingFiddlerProxy)
-        headers['Host'] = "52.71.70.189"; // change the host header so fiddler can stop complaining
+        headers['Host'] = "34.236.186.90"; // change the host header so fiddler can stop complaining
 
     if(isPost)
     {
@@ -118,7 +78,7 @@ function forwardRequest(response, url, headers, body)
 
     var options =
     {
-        host: "52.71.70.189",
+        host: "34.236.186.90",
         port: 443,
         path: url,
         headers: headers,
@@ -130,7 +90,7 @@ function forwardRequest(response, url, headers, body)
     {
         options.host = "127.0.0.1";
         options.port = 8888;
-        options.path = "https://52.71.70.189" + url;
+        options.path = "https://34.236.186.90" + url;
     }
 
     callback = function(serverResponse)
@@ -202,16 +162,6 @@ function handleRequest(request, response)
             }
             response.writeHead(200, {'Content-Type': 'application/json'});
             response.end(JSON.stringify(rewards));
-        }
-        else if(request.url.startsWith("/messages/motd/current/"))
-        {
-            if(fs.existsSync("motd.json"))
-            {
-                var motdStr = fs.readFileSync("motd.json");
-                motd = JSON.parse(motdStr);
-            }
-            response.writeHead(200, {'Content-Type': 'application/json'});
-            response.end(JSON.stringify(motd));
         }
         else
             forwardRequest(response, request.url, plsHeaders);
@@ -301,13 +251,6 @@ if(fs.existsSync("serverKey.pem"))
 {
     console.log("Loading serverKey.pem...");
     sslKey = fs.readFileSync("serverKey.pem");
-}
-
-if(fs.existsSync("motd.json"))
-{
-    console.log("Loading motd.json...");
-    var motdStr = fs.readFileSync("motd.json");
-    motd = JSON.parse(motdStr);
 }
 
 if(fs.existsSync("rewards.json"))
